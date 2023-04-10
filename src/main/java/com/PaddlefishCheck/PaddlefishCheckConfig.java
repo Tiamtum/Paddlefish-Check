@@ -10,7 +10,7 @@ public interface PaddlefishCheckConfig extends Config
 	@ConfigItem(
 		keyName = "greeting",
 		name = "Welcome Greeting",
-		description = "The message to show to the user when they login"
+		description = "Test message."
 	)
 	default String greeting()
 	{

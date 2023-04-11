@@ -1,4 +1,4 @@
-package com.PaddlefishCheck;
+package com.Paddlefish_Check;
 
 import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;

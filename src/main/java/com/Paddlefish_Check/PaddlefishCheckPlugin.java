@@ -1,4 +1,4 @@
-package com.PaddlefishCheck;
+package com.Paddlefish_Check;
 
 import com.google.inject.Provides;
 

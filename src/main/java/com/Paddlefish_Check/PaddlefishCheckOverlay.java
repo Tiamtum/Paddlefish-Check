@@ -1,4 +1,4 @@
-package com.PaddlefishCheck;
+package com.Paddlefish_Check;
 
 import net.runelite.api.Client;
 import net.runelite.client.game.ItemManager;
@@ -27,7 +27,7 @@ public class PaddlefishCheckOverlay extends OverlayPanel {
             ItemManager itemManager)
     {
         super(plugin);
-        setPosition(OverlayPosition.TOP_LEFT);
+        setPosition(OverlayPosition.ABOVE_CHATBOX_RIGHT);
         setPriority(OverlayPriority.LOW);
         this.client = client;
         this.config = config;
@@ -42,9 +42,15 @@ public class PaddlefishCheckOverlay extends OverlayPanel {
     {
         if(plugin.isInGauntlet() && plugin.hasRawPaddleFish())
         {
-            panelComponent.getChildren().add(LineComponent.builder()
-                    .left("YOU HAVE RAW PADDLEFISH").leftColor(Color.RED)
-                    .build());
+            String warningMessage = "YOU HAVE RAW PADDLEFISH";
+            panelComponent.getChildren().clear();
+            panelComponent.setBackgroundColor(new Color(255, 0, 0, 100));
+            panelComponent.getChildren().add(
+                LineComponent.builder()
+                        .left(warningMessage).leftColor(Color.WHITE)
+                        .build()
+            );
+            panelComponent.setPreferredSize(new Dimension(157,157));
         }
         return super.render(graphics);
     }

@@ -1,4 +1,4 @@
-package com.PaddlefishCheck;
+package com.Paddlefish_Check;
 
 import net.runelite.client.RuneLite;
 import net.runelite.client.externalplugins.ExternalPluginManager;

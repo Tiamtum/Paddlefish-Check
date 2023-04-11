@@ -1,2 +1,2 @@
 # Paddlefish Check
-Checks your inventory for raw paddlefish within Gauntlet/Corrupted Gauntlet.
+Checks your inventory for raw paddlefish within The Gauntlet/Corrupted Gauntlet.

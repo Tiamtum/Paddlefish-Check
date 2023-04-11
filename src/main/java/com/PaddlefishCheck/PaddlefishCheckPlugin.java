@@ -1,50 +1,58 @@
 package com.PaddlefishCheck;
 
 import com.google.inject.Provides;
+
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import net.runelite.api.ChatMessageType;
-import net.runelite.api.Client;
-import net.runelite.api.GameState;
-import net.runelite.api.events.GameStateChanged;
+import net.runelite.api.*;
 import net.runelite.client.config.ConfigManager;
-import net.runelite.client.eventbus.Subscribe;
 import net.runelite.client.plugins.Plugin;
 import net.runelite.client.plugins.PluginDescriptor;
+import net.runelite.client.ui.overlay.OverlayManager;
+
 
 @Slf4j
 @PluginDescriptor(
-	name = "Example"
+		name = "Paddlefish Check",
+		description = "Checks your inventory for raw paddlefish within The Gauntlet/Corrupted Gauntlet.",
+		tags = {"the","gauntlet"},
+		enabledByDefault = false
 )
+
 public class PaddlefishCheckPlugin extends Plugin
 {
 	@Inject
 	private Client client;
-
 	@Inject
 	private PaddlefishCheckConfig config;
+	@Inject
+	private PaddlefishCheckOverlay overlay;
+	@Inject
+	private OverlayManager overlayManager;
+	private static final int VARBIT_MAZE = 9178; //Changes upon entering gauntlet/corrupted gauntlet
+	public boolean isInGauntlet()
+	{
+		if(client.getLocalPlayer() == null)
+		{
+			return false;
+		}
+		return client.getVarbitValue(VARBIT_MAZE) == 1;
+	}
+	public boolean hasRawPaddleFish()
+	{
+		return client.getItemContainer(InventoryID.INVENTORY).contains(ItemID.RAW_PADDLEFISH);
 
+	}
 	@Override
 	protected void startUp() throws Exception
 	{
-		log.info("Example started!");
+		overlayManager.add(overlay);
 	}
-
 	@Override
 	protected void shutDown() throws Exception
 	{
-		log.info("Example stopped!");
+		overlayManager.remove(overlay);
 	}
-
-	@Subscribe
-	public void onGameStateChanged(GameStateChanged gameStateChanged)
-	{
-		if (gameStateChanged.getGameState() == GameState.LOGGED_IN)
-		{
-			client.addChatMessage(ChatMessageType.GAMEMESSAGE, "", "Example says " + config.greeting(), null);
-		}
-	}
-
 	@Provides
 	PaddlefishCheckConfig provideConfig(ConfigManager configManager)
 	{
